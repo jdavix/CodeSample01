@@ -1,4 +1,6 @@
 class GroupEvent < ApplicationRecord
+  include AASM
+
   attribute :duration_days, :integer
 
   validates :duration_days, presence:true, numericality: {greater_than: 0, only_integer: true }
@@ -9,6 +11,26 @@ class GroupEvent < ApplicationRecord
   before_validation :set_duration_days
   before_validation :ensure_end_date
   before_validation :ensure_start_date
+
+
+  aasm column: :state do # default column: aasm_state
+    state :draft, :initial => true
+    state :published
+    state :deleted
+
+    event :publish do
+      transitions :from => :draft, :to => :published
+    end
+
+    event :recover do
+      transitions :from => :deleted, :to => :draft
+    end
+
+    event :mark_as_deleted do
+      transitions :from => [:draft, :published], :to => :deleted
+    end
+  end
+
 
   private
 
