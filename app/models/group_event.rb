@@ -1,17 +1,17 @@
 class GroupEvent < ApplicationRecord
   include AASM
+  REQUIRED_FIELDS_TO_PUBLISH=["name", "description", "location"]
 
   attribute :duration_days, :integer
 
-  validates :duration_days, presence:true, numericality: {greater_than: 0, only_integer: true }
-  validates :end_date, date: {after_or_equal_to:  :start_date}
-  validates :start_date
   validate :dates_presence_validation
+  validate :end_date_position
+  validates :duration_days, presence:true, numericality: {greater_than: 0, only_integer: true }
+
 
   before_validation :set_duration_days
   before_validation :ensure_end_date
   before_validation :ensure_start_date
-
 
   aasm column: :state do # default column: aasm_state
     state :draft, :initial => true
@@ -19,7 +19,7 @@ class GroupEvent < ApplicationRecord
     state :deleted
 
     event :publish do
-      transitions :from => :draft, :to => :published
+      transitions :from => :draft, :to => :published, guard: :check_completeness
     end
 
     event :recover do
@@ -31,6 +31,15 @@ class GroupEvent < ApplicationRecord
     end
   end
 
+  def ready_to_publish?
+    self.missing_fields.size == 0
+  end
+
+  def missing_fields
+    fields = REQUIRED_FIELDS_TO_PUBLISH
+    fields = fields.map{ |field|  field if !self.send((field+"?").to_sym) }
+    fields.compact
+  end
 
   private
 
@@ -50,24 +59,41 @@ class GroupEvent < ApplicationRecord
       end
     end
 
+    #by default subsctraction gives how many days are between the two days, but we need to include both days
+    #Example, Tue, 20 Jun 2017 minus 4 days gives 
     def ensure_start_date
       if self.duration_days? && !self.start_date? && self.end_date?
-        self.start_date = self.end_date - (self.duration_days + 1).days
+        self.start_date = self.end_date - (self.duration_days - 1).days
+      end
+    end
+
+
+    def end_date_position
+      if self.start_date? && self.end_date? && self.start_date > self.end_date
+        self.errors.add(:start_date, "can't be greater than end_date")
       end
     end
 
     def dates_presence_validation
       if self.start_date? && !self.end_date? && !self.duration_days?
-        self.errors.add(:end_date, "End date can't be blank, Please provide end date value or duration days")
+        self.errors.add(:end_date, "can't be blank, Please provide end date value or duration days")
       end
 
       if self.end_date? && !self.start_date? && !self.duration_days?
-        self.errors.add(:start_date, "Start date can't be blank, Please provide start date value or duration days")
+        self.errors.add(:start_date, "can't be blank, Please provide start date value or duration days")
       end
 
       if !self.end_date? && !self.start_date?
-        self.errors.add(:start_date, "Start date can't be blank")
-        self.errors.add(:end_date, "End date can't be blank")
+        self.errors.add(:start_date, "can't be blank")
+        self.errors.add(:end_date, "can't be blank")
       end
+    end
+
+    #stop to publish the event in case the event is not complete
+    def check_completeness
+      if !self.ready_to_publish?
+        return false
+      end
+      return true
     end
 end
