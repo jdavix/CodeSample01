@@ -55,13 +55,13 @@ RSpec.describe Api::V1::GroupEventsController, :type => :controller do
     end
 
     context "successful updated a group event, only duration sent, but event has already start date", focus: true do
-      let(:group_event){ FactoryGirl.create(:group_event, start_date: 'Fri, 23 Jun 2017') }
+      let(:group_event){ FactoryGirl.create(:group_event, start_date: '2017-06-23') }
       before{put :update, params: {id: group_event.id, group_event: {duration_days: 3}}}
       it{ expect(response).to be_success }
       it{ expect(response).to have_http_status(200) }
-      it{ expect(assigns(:group_event).start_date).to eq(Time.parse('Fri, 23 Jun 2017').to_date)}
+      it{ expect(assigns(:group_event).start_date).to eq(Time.parse('2017-06-23').to_date)}
       it{ expect(assigns(:group_event).duration_days).to eq(3)}
-      it{ expect(assigns(:group_event).end_date).to eq(Time.parse('Fri, 25 Jun 2017').to_date)}
+      it{ expect(assigns(:group_event).end_date).to eq(Time.parse('2017-06-25').to_date)}
     end
 
     context "Unsuccessfully updating a group event no date param sent" do
