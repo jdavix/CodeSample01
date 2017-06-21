@@ -9,9 +9,9 @@ class GroupEvent < ApplicationRecord
   validates :duration_days, presence:true, numericality: {greater_than: 0, only_integer: true }
 
 
-  before_validation :set_duration_days
-  before_validation :ensure_end_date
-  before_validation :ensure_start_date
+  before_validation :setup_date_fields
+
+  after_initialize :setup_duration_days
 
   aasm column: :state do # default column: aasm_state
     state :draft, :initial => true
@@ -42,12 +42,32 @@ class GroupEvent < ApplicationRecord
   end
 
   private
+    def setup_date_fields
+      #Order of calling below methods matters
+      set_duration_days
+      ensure_end_date
+      ensure_start_date
+    end
 
     #set_duration_days calculates how many duration days are between start_date and end_date
     #I add 1 day to the result to include the start_date as part of the event duration date. 
     def set_duration_days
+      if !self.duration_days? && self.end_date && self.start_date
+        self.duration_days = ((self.end_date - self.start_date) + 1)
+      elsif self.duration_days_changed? && self.start_date_changed? && !self.end_date_changed?
+        self.end_date = nil
+      elsif self.duration_days_changed? && !self.start_date_changed? && self.end_date_changed?
+        self.start_date = nil
+      elsif self.duration_days_changed? && !self.start_date_changed? && !self.end_date_changed?
+        self.end_date = nil
+      end
+
+    end
+
+    #This method updates duration day, when start date and end date are received. 
+    def setup_duration_days
       if self.end_date && self.start_date
-        self.duration_days = (self.end_date - self.start_date) + 1
+        self.duration_days = ((self.end_date - self.start_date) + 1)
       end
     end
 
