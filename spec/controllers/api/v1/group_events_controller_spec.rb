@@ -11,8 +11,22 @@ RSpec.describe Api::V1::GroupEventsController, :type => :controller do
       it{ expect(assigns(:group_event)).to be_persisted}
     end
 
-    context "Unsuccessful group event creation" do
+    context "Unsuccessful group event creation only start date sent" do
       before{ post :create, params: {group_event: {start_date: Time.zone.now.to_date}}}
+      it{ expect(response).to have_http_status(422) }
+      it{ expect(JSON.parse(response.body)).to include("errors")}
+      it{ expect(JSON.parse(response.body)["meta"]).to include("fields_errors")}
+    end
+
+    context "Unsuccessful group event creation only duration sent" do
+      before{ post :create, params: {group_event: {duration_days: 5}}}
+      it{ expect(response).to have_http_status(422) }
+      it{ expect(JSON.parse(response.body)).to include("errors")}
+      it{ expect(JSON.parse(response.body)["meta"]).to include("fields_errors")}
+    end
+
+    context "Unsuccessful group event creation only end date sent" do
+      before{ post :create, params: {group_event: {end_date: Time.zone.now.to_date}}}
       it{ expect(response).to have_http_status(422) }
       it{ expect(JSON.parse(response.body)).to include("errors")}
       it{ expect(JSON.parse(response.body)["meta"]).to include("fields_errors")}
@@ -20,8 +34,8 @@ RSpec.describe Api::V1::GroupEventsController, :type => :controller do
   end
 
   describe "PUT #update" do
-    let(:group_event){ FactoryGirl.create(:group_event) }
     context "successful updated a group event, start date and duration sent", focus: true do
+      let(:group_event){ FactoryGirl.create(:group_event) }
       before{put :update, params: {id: group_event.id, group_event: {start_date: "2017-06-18", duration_days: 3}}}
       it{ expect(response).to be_success }
       it{ expect(response).to have_http_status(200) }
@@ -31,6 +45,7 @@ RSpec.describe Api::V1::GroupEventsController, :type => :controller do
     end
 
     context "successful updated a group event, end date and duration sent", focus: true do
+      let(:group_event){ FactoryGirl.create(:group_event) }
       before{put :update, params: {id: group_event.id, group_event: {end_date: "2017-06-20", duration_days: 3}}}
       it{ expect(response).to be_success }
       it{ expect(response).to have_http_status(200) }
@@ -40,16 +55,18 @@ RSpec.describe Api::V1::GroupEventsController, :type => :controller do
     end
 
     context "successful updated a group event, only duration sent, but event has already start date", focus: true do
-      before{put :update, params: {id: group_event.id, group_event: {end_date: "2017-06-20", duration_days: 3}}}
+      let(:group_event){ FactoryGirl.create(:group_event, start_date: 'Fri, 23 Jun 2017') }
+      before{put :update, params: {id: group_event.id, group_event: {duration_days: 3}}}
       it{ expect(response).to be_success }
       it{ expect(response).to have_http_status(200) }
-      it{ expect(assigns(:group_event).start_date).to eq(Time.parse("2017-06-18").to_date)}
+      it{ expect(assigns(:group_event).start_date).to eq(Time.parse('Fri, 23 Jun 2017').to_date)}
       it{ expect(assigns(:group_event).duration_days).to eq(3)}
-      it{ expect(assigns(:group_event).end_date).to eq(Time.parse("2017-06-20").to_date)}
+      it{ expect(assigns(:group_event).end_date).to eq(Time.parse('Fri, 25 Jun 2017').to_date)}
     end
 
-    context "Unsuccessful group event creation" do
-      before{ post :create, params: {group_event: {start_date: Time.zone.now.to_date}}}
+    context "Unsuccessfully updating a group event no date param sent" do
+      let(:group_event){ FactoryGirl.create(:group_event) }
+      before{ put :update, params: {id: group_event.id, group_event: {start_date: nil, end_date: nil, duration_days: nil}}}
       it{ expect(response).to have_http_status(422) }
       it{ expect(JSON.parse(response.body)).to include("errors")}
       it{ expect(JSON.parse(response.body)["meta"]).to include("fields_errors")}
