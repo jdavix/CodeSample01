@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/josepedraza/projects/test_trials/group_events/spec/controllers/api/v1/group_events_controller_spec.rb": [
+      "/Users/josepedraza/projects/test_trials/exercise_070621_josePedraza/spec/controllers/api/v1/group_events_controller_spec.rb": [
         1,
         null,
         null,
@@ -144,7 +144,7 @@
         null,
         null
       ],
-      "/Users/josepedraza/projects/test_trials/group_events/spec/rails_helper.rb": [
+      "/Users/josepedraza/projects/test_trials/exercise_070621_josePedraza/spec/rails_helper.rb": [
         null,
         1,
         1,
@@ -203,14 +203,14 @@
         null,
         null
       ],
-      "/Users/josepedraza/projects/test_trials/group_events/config/environment.rb": [
+      "/Users/josepedraza/projects/test_trials/exercise_070621_josePedraza/config/environment.rb": [
         null,
         1,
         null,
         null,
         1
       ],
-      "/Users/josepedraza/projects/test_trials/group_events/config/application.rb": [
+      "/Users/josepedraza/projects/test_trials/exercise_070621_josePedraza/config/application.rb": [
         1,
         null,
         1,
@@ -245,12 +245,12 @@
         null,
         null
       ],
-      "/Users/josepedraza/projects/test_trials/group_events/config/boot.rb": [
+      "/Users/josepedraza/projects/test_trials/exercise_070621_josePedraza/config/boot.rb": [
         1,
         null,
         1
       ],
-      "/Users/josepedraza/projects/test_trials/group_events/config/environments/test.rb": [
+      "/Users/josepedraza/projects/test_trials/exercise_070621_josePedraza/config/environments/test.rb": [
         1,
         null,
         null,
@@ -294,7 +294,7 @@
         null,
         null
       ],
-      "/Users/josepedraza/projects/test_trials/group_events/config/initializers/application_controller_renderer.rb": [
+      "/Users/josepedraza/projects/test_trials/exercise_070621_josePedraza/config/initializers/application_controller_renderer.rb": [
         null,
         null,
         null,
@@ -302,25 +302,7 @@
         null,
         null
       ],
-      "/Users/josepedraza/projects/test_trials/group_events/config/initializers/backtrace_silencers.rb": [
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null
-      ],
-      "/Users/josepedraza/projects/test_trials/group_events/config/initializers/cors.rb": [
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
+      "/Users/josepedraza/projects/test_trials/exercise_070621_josePedraza/config/initializers/backtrace_silencers.rb": [
         null,
         null,
         null,
@@ -329,13 +311,31 @@
         null,
         null
       ],
-      "/Users/josepedraza/projects/test_trials/group_events/config/initializers/filter_parameter_logging.rb": [
+      "/Users/josepedraza/projects/test_trials/exercise_070621_josePedraza/config/initializers/cors.rb": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "/Users/josepedraza/projects/test_trials/exercise_070621_josePedraza/config/initializers/filter_parameter_logging.rb": [
         null,
         null,
         null,
         1
       ],
-      "/Users/josepedraza/projects/test_trials/group_events/config/initializers/inflections.rb": [
+      "/Users/josepedraza/projects/test_trials/exercise_070621_josePedraza/config/initializers/inflections.rb": [
         null,
         null,
         null,
@@ -353,13 +353,13 @@
         null,
         null
       ],
-      "/Users/josepedraza/projects/test_trials/group_events/config/initializers/mime_types.rb": [
+      "/Users/josepedraza/projects/test_trials/exercise_070621_josePedraza/config/initializers/mime_types.rb": [
         null,
         null,
         null,
         null
       ],
-      "/Users/josepedraza/projects/test_trials/group_events/config/initializers/wrap_parameters.rb": [
+      "/Users/josepedraza/projects/test_trials/exercise_070621_josePedraza/config/initializers/wrap_parameters.rb": [
         null,
         null,
         null,
@@ -375,7 +375,7 @@
         null,
         null
       ],
-      "/Users/josepedraza/projects/test_trials/group_events/spec/factories/group_events.rb": [
+      "/Users/josepedraza/projects/test_trials/exercise_070621_josePedraza/spec/factories/group_events.rb": [
         1,
         1,
         1,
@@ -385,7 +385,7 @@
         null,
         null
       ],
-      "/Users/josepedraza/projects/test_trials/group_events/config/routes.rb": [
+      "/Users/josepedraza/projects/test_trials/exercise_070621_josePedraza/config/routes.rb": [
         1,
         null,
         1,
@@ -398,7 +398,7 @@
         null,
         null
       ],
-      "/Users/josepedraza/projects/test_trials/group_events/app/controllers/api/v1/group_events_controller.rb": [
+      "/Users/josepedraza/projects/test_trials/exercise_070621_josePedraza/app/controllers/api/v1/group_events_controller.rb": [
         1,
         null,
         null,
@@ -482,7 +482,7 @@
         null,
         null
       ],
-      "/Users/josepedraza/projects/test_trials/group_events/app/controllers/application_controller.rb": [
+      "/Users/josepedraza/projects/test_trials/exercise_070621_josePedraza/app/controllers/application_controller.rb": [
         1,
         1,
         1,
@@ -538,7 +538,7 @@
         null,
         null
       ],
-      "/Users/josepedraza/projects/test_trials/group_events/spec/models/group_event_spec.rb": [
+      "/Users/josepedraza/projects/test_trials/exercise_070621_josePedraza/spec/models/group_event_spec.rb": [
         1,
         1,
         null,
@@ -682,7 +682,7 @@
         null,
         null
       ],
-      "/Users/josepedraza/projects/test_trials/group_events/app/models/group_event.rb": [
+      "/Users/josepedraza/projects/test_trials/exercise_070621_josePedraza/app/models/group_event.rb": [
         1,
         1,
         1,
@@ -803,17 +803,17 @@
         null,
         null
       ],
-      "/Users/josepedraza/projects/test_trials/group_events/app/models/application_record.rb": [
+      "/Users/josepedraza/projects/test_trials/exercise_070621_josePedraza/app/models/application_record.rb": [
         1,
         1,
         null
       ],
-      "/Users/josepedraza/projects/test_trials/group_events/app/serializers/group_event_serializer.rb": [
+      "/Users/josepedraza/projects/test_trials/exercise_070621_josePedraza/app/serializers/group_event_serializer.rb": [
         1,
         1,
         null
       ]
     },
-    "timestamp": 1498060146
+    "timestamp": 1498060699
   }
 }
