@@ -8,7 +8,7 @@ A group event will be created by an user. The group event should run for a whole
 Deliverable:
 Write an AR model, spec and migration for a GroupEvent that would meet the needs of the description above. Then write the api controller and spec to support JSON request/responses to manage these GroupEvents. For the purposes of this exercise, ignore auth. Please provide your solution as a rails app called exercise_YYMMDD_yourname, sent as a zip file.
 
-##Technical details:
+## Technical details:
 
 * Ruby version
 Project has been tested with ruby-2.2.6
